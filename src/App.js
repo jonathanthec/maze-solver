@@ -1,10 +1,10 @@
 import React from 'react';
-import './App.css';
+import MazeSolver from './components/MazeSolver';
 
 function App() {
   return (
     <div>
-      <h1>Hello World</h1>
+      <MazeSolver />
     </div>
   );
 }
