@@ -10,20 +10,24 @@ export function dijkstra(grid, startNode, finishNode) {
     // Get all unvisited nodes in the grid (here it's all nodes)
     const unvisitedNodes = getAllNodes(grid);
     // Now, as long as we still have unvisited nodes in the above list
-    while (unvisitedNodes.length) {
+    while (unvisitedNodes.length !== 0) {
         // Sort the list of unvisited nodes to place the one with shortest distance 
         // In the front. This ensures startNode is at beginning. 
         sortNodesByDistance(unvisitedNodes);
         // Returns the first node in the list unvisitedNodes and removes it from list
         const closestNode = unvisitedNodes.shift();
         // If a node is wall, continue
-        if (closestNode.isWall) continue;
+        if (closestNode.isWall === true) continue;
         // If a node's distance to startNode is infinity, we are done, no more places to go
-        if (closestNode.distance === Infinity) return nodesVisitedInOrder;
+        if (closestNode.distance === Infinity) {
+            return nodesVisitedInOrder;
+        }
         // Otherwise, do the following
         closestNode.visited = true;
         nodesVisitedInOrder.push(closestNode);
-        if (closestNode === finishNode) return nodesVisitedInOrder;
+        if (closestNode === finishNode) {
+            return nodesVisitedInOrder;
+        }
         // See what are the neighbors of closestNode, and update their distance to startNode
         updateUnvisitedNeighbors(closestNode, grid);
     }
@@ -58,7 +62,7 @@ function getUnvisitedNeighbors(node, grid) {
     if (col < grid[0].length - 1) neighbors.push(grid[row][col + 1]);
     if (row < grid.length - 1) neighbors.push(grid[row + 1][col]);
     if (col > 0) neighbors.push(grid[row][col - 1]);
-    return neighbors.filter(neighbor => !neighbor.isVisited);
+    return neighbors.filter(neighbor => !neighbor.visited);
 }
 
 export function getShortestNodePath(finishNode) {
