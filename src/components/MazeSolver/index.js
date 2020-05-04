@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Node } from '../Node';
-import { dijkstra, getShortestNodePath } from '../../algorithms/dijkstra';
+import { visualizeDijkstra } from '../../algorithms/dijkstra';
 import './MazeSolver.css';
 
 export default function MazeSolver() {
@@ -74,40 +74,10 @@ export default function MazeSolver() {
         setDragFinish(false);
     }
 
-    function animateDijkstra(orderedVisitedNodes, orderedNodesOnShortestPath) {
-        for (let i = 0; i < orderedVisitedNodes.length; i++) {
-            if (i === orderedVisitedNodes.length - 1) {
-                setTimeout(() => {
-                    animateShortestPath(orderedNodesOnShortestPath);
-                }, 10 * i);
-            }
-            setTimeout(() => {
-                const node = orderedVisitedNodes[i];
-                document.getElementById(`node-${node.row}-${node.col}`).className = 'node node-visited';
-            }, 10 * i);
-        }
-    }
-
-    function animateShortestPath(orderedNodesOnShortestPath) {
-        for (let i = 0; i < orderedNodesOnShortestPath.length; i++) {
-            setTimeout(() => {
-                const node = orderedNodesOnShortestPath[i];
-                document.getElementById(`node-${node.row}-${node.col}`).className = 'node node-shortest-path';
-            }, 50 * i)
-        }
-    }
-
-    function visualizeDijkstra() {
-        const startNode = grid[startRow][startCol];
-        const finishNode = grid[finishRow][finishCol];
-        const orderedVisitedNodes = dijkstra(grid, startNode, finishNode);
-        const orderedNodesOnShortestPath = getShortestNodePath(finishNode);
-        animateDijkstra(orderedVisitedNodes, orderedNodesOnShortestPath);
-    }
 
     return (
         <div>
-            <button onClick={() => visualizeDijkstra()}>
+            <button onClick={() => visualizeDijkstra(grid, startRow, startCol, finishRow, finishCol)}>
                 Visualize Dijkstra's Algorithm
             </button>
             <div className="grid">
