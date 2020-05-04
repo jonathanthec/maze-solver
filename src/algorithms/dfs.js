@@ -1,33 +1,24 @@
-// Breadth first search algorithm will start at a node, list all
-// of the node's neighbors in an array, and check each of the neighbors, 
-// while adding neighbor's neighbors in the list
-// Does not guarantee the shortest path for obvious reason
+// Depth first search algorithm will start at startNode, and add all of its valid neighbors
+// To an array called toBeVisitedNodes. Order of adding neighbors will be top, right, bottom, left.
+// It will then check for the last element in the array.
+// Does not guarantee shortest path.
 
-export function bfs(grid, startNode, finishNode) {
-    // Initialize an empty array to track nodes that I will be visiting in order
+export function dfs(grid, startNode, finishNode) {
+    const toBeVisitedNodes = [];
     const nodesVisitedInOrder = [];
-    // Initialize an empty array, this will keep track all the nodes we haven't visit yet
-    const unvisitedNeighbors = [];
-    // And push startNode to it, because we will start at startNode
-    unvisitedNeighbors.push(startNode);
-    // As long as finishNode isn't found, we'll keep searching until there are no more things to look for
-    while (unvisitedNeighbors.length > 0) {
-        // Grab the first node on unvisitedNeighbors, and its row and col
-        const currNode = unvisitedNeighbors.shift();
-        // If it's wall - sorry, we interrupted
+    toBeVisitedNodes.push(startNode);
+    while (toBeVisitedNodes.length > 0) {
+        const currNode = toBeVisitedNodes.pop();
         if (currNode.isWall === true) continue;
-        // But if it's not a wall, then we push it to visited nodes
         if (currNode.visited !== true) {
             currNode.visited = true;
             nodesVisitedInOrder.push(currNode);
         }
-        // Now, if currNode is the finishNode, we are done
         if (currNode === finishNode) return nodesVisitedInOrder;
-        // Otherwise we need to push its unvisited neighbors to unvisitedNeighbors
         const neighbors = getUnvisitedNeighbors(currNode, grid);
         for (const neighbor of neighbors) {
             neighbor.previousNode = currNode;
-            unvisitedNeighbors.push(neighbor);
+            toBeVisitedNodes.push(neighbor);
         }
     }
 }
@@ -52,7 +43,8 @@ function getShortestNodePath(finishNode) {
     return shortestPath;
 }
 
-function animateBfs(orderedVisitedNodes, orderedNodesOnShortestPath) {
+
+function animateDfs(orderedVisitedNodes, orderedNodesOnShortestPath) {
     for (let i = 0; i < orderedVisitedNodes.length; i++) {
         if (i === orderedVisitedNodes.length - 1) {
             setTimeout(() => {
@@ -75,10 +67,10 @@ function animateShortestPath(orderedNodesOnShortestPath) {
     }
 }
 
-export function visualizeBfs(grid, startRow, startCol, finishRow, finishCol) {
+export function visualizeDfs(grid, startRow, startCol, finishRow, finishCol) {
     const startNode = grid[startRow][startCol];
     const finishNode = grid[finishRow][finishCol];
-    const orderedVisitedNodes = bfs(grid, startNode, finishNode);
+    const orderedVisitedNodes = dfs(grid, startNode, finishNode);
     const orderedNodesOnShortestPath = getShortestNodePath(finishNode);
-    animateBfs(orderedVisitedNodes, orderedNodesOnShortestPath);
+    animateDfs(orderedVisitedNodes, orderedNodesOnShortestPath);
 }

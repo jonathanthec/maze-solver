@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Node } from '../Node';
 import { visualizeDijkstra } from '../../algorithms/dijkstra';
 import { visualizeBfs } from '../../algorithms/bfs';
+import { visualizeDfs } from '../../algorithms/dfs';
 import './MazeSolver.css';
 
 export default function MazeSolver() {
@@ -100,6 +101,9 @@ export default function MazeSolver() {
             <button onClick={() => visualizeBfs(grid, startRow, startCol, finishRow, finishCol)}>
                 Visualize BFS Algorithm
             </button>
+            <button onClick={() => visualizeDfs(grid, startRow, startCol, finishRow, finishCol)}>
+                Visualize DFS Algorithm
+            </button>
             <div className="grid">
                 {grid && grid.map((row, rowIdx) => {
                     return (
@@ -132,8 +136,8 @@ export default function MazeSolver() {
 
 const NODE_START_ROW = 0;
 const NODE_START_COL = 0;
-const NODE_FINISH_ROW = 3;
-const NODE_FINISH_COL = 3;
+const NODE_FINISH_ROW = 15;
+const NODE_FINISH_COL = 15;
 
 function initializeGrid() {
     const grid = [];
