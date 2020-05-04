@@ -65,7 +65,7 @@ function getUnvisitedNeighbors(node, grid) {
     return neighbors.filter(neighbor => !neighbor.visited);
 }
 
-export function getShortestNodePath(finishNode) {
+function getShortestNodePath(finishNode) {
     const shortestPath = [];
     let currentNode = finishNode;
     while (currentNode !== null) {

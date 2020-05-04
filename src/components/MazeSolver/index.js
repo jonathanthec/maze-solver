@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Node } from '../Node';
 import { visualizeDijkstra } from '../../algorithms/dijkstra';
+import { visualizeBfs } from '../../algorithms/bfs';
 import './MazeSolver.css';
 
 export default function MazeSolver() {
@@ -96,6 +97,9 @@ export default function MazeSolver() {
             <button onClick={() => visualizeDijkstra(grid, startRow, startCol, finishRow, finishCol)}>
                 Visualize Dijkstra's Algorithm
             </button>
+            <button onClick={() => visualizeBfs(grid, startRow, startCol, finishRow, finishCol)}>
+                Visualize BFS Algorithm
+            </button>
             <div className="grid">
                 {grid && grid.map((row, rowIdx) => {
                     return (
@@ -126,10 +130,10 @@ export default function MazeSolver() {
     )
 }
 
-const NODE_START_ROW = 5;
-const NODE_START_COL = 5;
-const NODE_FINISH_ROW = 23;
-const NODE_FINISH_COL = 24;
+const NODE_START_ROW = 0;
+const NODE_START_COL = 0;
+const NODE_FINISH_ROW = 3;
+const NODE_FINISH_COL = 3;
 
 function initializeGrid() {
     const grid = [];
