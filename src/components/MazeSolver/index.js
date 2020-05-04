@@ -3,14 +3,15 @@ import { Node } from '../Node';
 import { dijkstra, getShortestNodePath } from '../../algorithms/dijkstra';
 import './MazeSolver.css';
 
-const NODE_START_ROW = 2;
-const NODE_START_COL = 2;
-const NODE_FINISH_ROW = 24;
-const NODE_FINISH_COL = 44;
-
 export default function MazeSolver() {
     const [grid, setGrid] = useState([]);
     const [mouseIsPressed, setMouseIsPressed] = useState(false);
+    const [dragStart, setDragStart] = useState(false);
+    const [dragFinish, setDragFinish] = useState(false);
+    const [startRow, setStartRow] = useState(NODE_START_ROW);
+    const [startCol, setStartCol] = useState(NODE_START_COL);
+    const [finishRow, setFinishRow] = useState(NODE_FINISH_ROW);
+    const [finishCol, setFinishCol] = useState(NODE_FINISH_COL);
 
     useEffect(() => {
         const grid = initializeGrid();
@@ -18,19 +19,59 @@ export default function MazeSolver() {
     }, [])
 
     function handleMouseDown(row, col) {
-        const newGrid = initializeGridWithWall(grid, row, col);
-        setGrid(newGrid);
-        setMouseIsPressed(true);
+        if (grid[row][col].isStart) {
+            setDragStart(true);
+            setMouseIsPressed(true);
+        }
+        if (grid[row][col].isFinish) {
+            setDragFinish(true);
+            setMouseIsPressed(true);
+        }
+        if (!grid[row][col].isFinish && !grid[row][col].isStart) {
+            const newGrid = initializeGridWithWall(grid, row, col);
+            setGrid(newGrid);
+            setMouseIsPressed(true);
+        }
     }
 
     function handleMouseEnter(row, col) {
-        if (!mouseIsPressed) return;
-        const newGrid = initializeGridWithWall(grid, row, col);
-        setGrid(newGrid);
+        if (!mouseIsPressed && !dragStart && !dragFinish) return;
+        if (dragStart) {
+            const newGrid = initializeGridWithNewStart(grid, row, col);
+            setGrid(newGrid);
+            setStartRow(row);
+            setStartCol(col);
+        }
+        if (dragFinish) {
+            const newGrid = initializeGridWithNewFinish(grid, row, col);
+            setGrid(newGrid);
+            setFinishRow(row);
+            setFinishCol(col);
+        }
+        if (!dragStart && !dragFinish) {
+            const newGrid = initializeGridWithWall(grid, row, col);
+            setGrid(newGrid);
+        }
+    }
+
+    function handleMouseLeave(row, col) {
+        if (dragStart) {
+            const newGrid = initializeGridWithNewStart(grid, row, col);
+            setGrid(newGrid);
+        }
+        if (dragFinish) {
+            const newGrid = initializeGridWithNewFinish(grid, row, col);
+            setGrid(newGrid);
+        }
+        if (!dragStart && !dragFinish) {
+            return;
+        }
     }
 
     function handleMouseUp() {
         setMouseIsPressed(false);
+        setDragStart(false);
+        setDragFinish(false);
     }
 
     function animateDijkstra(orderedVisitedNodes, orderedNodesOnShortestPath) {
@@ -48,7 +89,6 @@ export default function MazeSolver() {
     }
 
     function animateShortestPath(orderedNodesOnShortestPath) {
-        console.log('shit')
         for (let i = 0; i < orderedNodesOnShortestPath.length; i++) {
             setTimeout(() => {
                 const node = orderedNodesOnShortestPath[i];
@@ -58,8 +98,8 @@ export default function MazeSolver() {
     }
 
     function visualizeDijkstra() {
-        const startNode = grid[NODE_START_ROW][NODE_START_COL];
-        const finishNode = grid[NODE_FINISH_ROW][NODE_FINISH_COL];
+        const startNode = grid[startRow][startCol];
+        const finishNode = grid[finishRow][finishCol];
         const orderedVisitedNodes = dijkstra(grid, startNode, finishNode);
         const orderedNodesOnShortestPath = getShortestNodePath(finishNode);
         animateDijkstra(orderedVisitedNodes, orderedNodesOnShortestPath);
@@ -87,6 +127,7 @@ export default function MazeSolver() {
                                         mouseIsPressed={mouseIsPressed}
                                         onMouseDown={(row, col) => handleMouseDown(row, col)}
                                         onMouseEnter={(row, col) => handleMouseEnter(row, col)}
+                                        onMouseLeave={(row, col) => handleMouseLeave(row, col)}
                                         onMouseUp={() => handleMouseUp()}
                                     />
                                 )
@@ -98,6 +139,11 @@ export default function MazeSolver() {
         </div>
     )
 }
+
+const NODE_START_ROW = 10;
+const NODE_START_COL = 5;
+const NODE_FINISH_ROW = 20;
+const NODE_FINISH_COL = 35;
 
 function initializeGrid() {
     const grid = [];
@@ -130,6 +176,28 @@ const initializeGridWithWall = (grid, row, col) => {
     const newNode = {
         ...node,
         isWall: !node.isWall,
+    };
+    newGrid[row][col] = newNode;
+    return newGrid;
+};
+
+const initializeGridWithNewStart = (grid, row, col) => {
+    const newGrid = grid.slice();
+    const node = newGrid[row][col];
+    const newNode = {
+        ...node,
+        isStart: !node.isStart,
+    };
+    newGrid[row][col] = newNode;
+    return newGrid;
+};
+
+const initializeGridWithNewFinish = (grid, row, col) => {
+    const newGrid = grid.slice();
+    const node = newGrid[row][col];
+    const newNode = {
+        ...node,
+        isFinish: !node.isFinish,
     };
     newGrid[row][col] = newNode;
     return newGrid;

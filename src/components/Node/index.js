@@ -10,7 +10,8 @@ export const Node = props => {
         isWall,
         onMouseDown,
         onMouseUp,
-        onMouseEnter
+        onMouseEnter,
+        onMouseLeave
     } = props;
 
     const extraClassName = isFinish
@@ -27,6 +28,7 @@ export const Node = props => {
             className={`node ${extraClassName}`}
             onMouseDown={() => onMouseDown(row, col)}
             onMouseEnter={() => onMouseEnter(row, col)}
+            onMouseLeave={() => onMouseLeave(row, col)}
             onMouseUp={() => onMouseUp()}
         >
         </div>
