@@ -43,7 +43,6 @@ export const Node = props => {
             onMouseDown={() => handleMouseDown()}
             onMouseEnter={() => handleMouseEnter()}
             onMouseUp={() => handleMouseUp()}
-            onm
         >
         </div>
     )
