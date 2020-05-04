@@ -1,62 +1,69 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
 import { Node } from '../Node';
+import './MazeSolver.css';
 
-const MazeSolver = () => {
-    const [map, setMap] = useState([]);
-    const [numRows] = useState(20);
-    const [numCols] = useState(50);
+const NODE_START_ROW = 10;
+const NODE_START_COL = 5;
+const NODE_FINISH_ROW = 10;
+const NODE_FINISH_COL = 45;
+
+export default function MazeSolver() {
+    const [grid, setGrid] = useState([]);
+    const [mouseIsPressed, setMouseIsPressed] = useState(false);
 
     useEffect(() => {
-        const matrix = [];
-        for (let row = 0; row < numRows; row++) {
-            const currentRow = [];
-            for (let col = 0; col < numCols; col++) {
-                const currentNode = {
-                    row,
-                    col,
-                    isStart: row === 10 && col === 5,
-                    isFinish: row === 10 && col === 45,
-                };
-                currentRow.push(currentNode);
-            }
-            matrix.push(currentRow);
-        }
-        setMap(matrix);
-    }, [numRows, numCols])
+        const grid = initializeGrid();
+        setGrid(grid);
+    }, [])
 
     return (
-        <GridContainer>
-            {map.map((row, rowIdx) => {
+        <div className="grid">
+            {grid.map((row, rowIdx) => {
                 return (
-                    <MapContainer key={rowIdx}>
+                    <div key={rowIdx} className="grid-row">
                         {row.map((node, nodeIdx) => {
-                            const { isStart, isFinish } = node;
+                            const { row, col, isStart, isFinish, isWall } = node;
                             return (
                                 <Node
                                     key={nodeIdx}
+                                    row={row}
+                                    col={col}
                                     isStart={isStart}
                                     isFinish={isFinish}
+                                    isWall={isWall}
+                                    mouseIsPressed={mouseIsPressed}
+                                    setMouseIsPressed={setMouseIsPressed}
                                 />
                             )
                         })}
-                    </MapContainer>
-                )
+                    </div>
+                );
             })}
-        </GridContainer>
+        </div>
     )
 }
 
-export default MazeSolver;
+function initializeGrid() {
+    const grid = [];
+    for (let row = 0; row < 25; row++) {
+        const currentRow = [];
+        for (let col = 0; col < 50; col++) {
+            currentRow.push(createNode(row, col));
+        }
+        grid.push(currentRow);
+    }
+    return grid;
+}
 
-const GridContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-`;
-
-const MapContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-`;
+function createNode(row, col) {
+    return {
+        row,
+        col,
+        isStart: row === NODE_START_ROW && col === NODE_START_COL,
+        isFinish: row === NODE_FINISH_ROW && col === NODE_FINISH_COL,
+        distance: Infinity,
+        isVisited: false,
+        isWall: false,
+        previousNode: null
+    }
+}
