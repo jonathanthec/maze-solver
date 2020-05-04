@@ -18,6 +18,20 @@ export default function MazeSolver() {
         setGrid(grid);
     }, [])
 
+    function resetGrid() {
+        for (let row = 0; row < 25; row++) {
+            for (let col = 0; col < 50; col++) {
+                document.getElementById(`node-${row}-${col}`).className = 'node';
+            }
+        }
+        const newGrid = initializeGrid();
+        setGrid(newGrid);
+        setStartRow(NODE_START_ROW);
+        setStartCol(NODE_START_COL);
+        setFinishRow(NODE_FINISH_ROW);
+        setFinishCol(NODE_FINISH_COL);
+    }
+
     function handleMouseDown(row, col) {
         if (grid[row][col].isStart) {
             setDragStart(true);
@@ -74,9 +88,11 @@ export default function MazeSolver() {
         setDragFinish(false);
     }
 
-
     return (
         <div>
+            <button onClick={() => resetGrid()}>
+                Reset Map
+            </button>
             <button onClick={() => visualizeDijkstra(grid, startRow, startCol, finishRow, finishCol)}>
                 Visualize Dijkstra's Algorithm
             </button>
@@ -110,10 +126,10 @@ export default function MazeSolver() {
     )
 }
 
-const NODE_START_ROW = 10;
+const NODE_START_ROW = 5;
 const NODE_START_COL = 5;
-const NODE_FINISH_ROW = 20;
-const NODE_FINISH_COL = 35;
+const NODE_FINISH_ROW = 23;
+const NODE_FINISH_COL = 24;
 
 function initializeGrid() {
     const grid = [];
