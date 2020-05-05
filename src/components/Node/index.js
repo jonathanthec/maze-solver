@@ -1,4 +1,6 @@
 import React from 'react';
+import { FaRegStar } from 'react-icons/fa';
+import { IoIosPlanet } from 'react-icons/io'
 import './node.css';
 
 export const Node = props => {
@@ -24,10 +26,10 @@ export const Node = props => {
             onMouseEnter={() => onMouseEnter(row, col)}
             onMouseLeave={() => onMouseLeave(row, col)}
             onMouseUp={() => onMouseUp()}
-            style={{ color: "black" }}
+            style={{ color: "red" }}
         >
-            {isStart ? "S" : ""}
-            {isFinish ? "F" : ""}
+            {isStart ? <FaRegStar style={{ margin: "2px 0 0 2px", color: "blue" }} /> : ""}
+            {isFinish ? <IoIosPlanet style={{ margin: "2px 0 0 2px", color: "blue" }} /> : ""}
         </div>
     )
 }
