@@ -6486,6 +6486,11 @@ lines-and-columns@^1.1.6:
   resolved "https://registry.yarnpkg.com/lines-and-columns/-/lines-and-columns-1.1.6.tgz#1c00c743b433cd0a4e80758f7b64a57440d9ff00"
   integrity sha1-HADHQ7QzzQpOgHWPe2SldEDZ/wA=
 
+linked-queue@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/linked-queue/-/linked-queue-1.0.3.tgz#7c8c7e27876f1b505a84b9e3324aa96845344178"
+  integrity sha1-fIx+J4dvG1BahLnjMkqpaEU0QXg=
+
 load-json-file@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/load-json-file/-/load-json-file-2.0.0.tgz#7947e42149af80d696cbf797bcaabcfe1fe29ca8"

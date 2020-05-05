@@ -134,10 +134,10 @@ export default function MazeSolver() {
     )
 }
 
-const NODE_START_ROW = 0;
+const NODE_START_ROW = 0
 const NODE_START_COL = 0;
-const NODE_FINISH_ROW = 15;
-const NODE_FINISH_COL = 15;
+const NODE_FINISH_ROW = 12;
+const NODE_FINISH_COL = 12;
 
 function initializeGrid() {
     const grid = [];

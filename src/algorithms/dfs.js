@@ -7,6 +7,7 @@ export function dfs(grid, startNode, finishNode) {
     const toBeVisitedNodes = [];
     const nodesVisitedInOrder = [];
     toBeVisitedNodes.push(startNode);
+
     while (toBeVisitedNodes.length > 0) {
         const currNode = toBeVisitedNodes.pop();
         if (currNode.isWall === true) continue;

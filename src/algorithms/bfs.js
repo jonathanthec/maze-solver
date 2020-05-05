@@ -2,32 +2,40 @@
 // of the node's neighbors in an array, and check each of the neighbors, 
 // while adding neighbor's neighbors in the list
 // Does not guarantee the shortest path for obvious reason
+var LQueue = require('linked-queue')
 
 export function bfs(grid, startNode, finishNode) {
     // Initialize an empty array to track nodes that I will be visiting in order
     const nodesVisitedInOrder = [];
-    // Initialize an empty array, this will keep track all the nodes we haven't visit yet
-    const unvisitedNeighbors = [];
+    // Initialize an empty queue, this will keep track all the nodes we haven't visit yet
+    const unvisitedNeighbors = new LQueue();
     // And push startNode to it, because we will start at startNode
-    unvisitedNeighbors.push(startNode);
+    unvisitedNeighbors.enqueue(startNode);
+    let times = 0;
     // As long as finishNode isn't found, we'll keep searching until there are no more things to look for
-    while (unvisitedNeighbors.length > 0) {
+    while (!unvisitedNeighbors.isEmpty()) {
+        times++;
         // Grab the first node on unvisitedNeighbors, and its row and col
-        const currNode = unvisitedNeighbors.shift();
+        const currNode = unvisitedNeighbors.dequeue();
         // If it's wall - sorry, we interrupted
         if (currNode.isWall === true) continue;
         // But if it's not a wall, then we push it to visited nodes
-        if (currNode.visited !== true) {
-            currNode.visited = true;
+        currNode.visited = true;
+        if (!nodesVisitedInOrder.includes(currNode)) {
             nodesVisitedInOrder.push(currNode);
         }
         // Now, if currNode is the finishNode, we are done
-        if (currNode === finishNode) return nodesVisitedInOrder;
+        if (currNode === finishNode) {
+            console.log(times)
+            return nodesVisitedInOrder;
+        }
         // Otherwise we need to push its unvisited neighbors to unvisitedNeighbors
         const neighbors = getUnvisitedNeighbors(currNode, grid);
-        for (const neighbor of neighbors) {
-            neighbor.previousNode = currNode;
-            unvisitedNeighbors.push(neighbor);
+        for (let i = 0; i < neighbors.length; i++) {
+            if (neighbors[i].visited === false) {
+                neighbors[i].previousNode = currNode;
+                unvisitedNeighbors.enqueue(neighbors[i]);
+            }
         }
     }
 }
@@ -79,6 +87,6 @@ export function visualizeBfs(grid, startRow, startCol, finishRow, finishCol) {
     const startNode = grid[startRow][startCol];
     const finishNode = grid[finishRow][finishCol];
     const orderedVisitedNodes = bfs(grid, startNode, finishNode);
-    const orderedNodesOnShortestPath = getShortestNodePath(finishNode);
-    animateBfs(orderedVisitedNodes, orderedNodesOnShortestPath);
+    // const orderedNodesOnShortestPath = getShortestNodePath(finishNode);
+    // animateBfs(orderedVisitedNodes, orderedNodesOnShortestPath);
 }
