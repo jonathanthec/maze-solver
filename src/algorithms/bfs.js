@@ -16,7 +16,8 @@ export function bfs(grid, startNode, finishNode) {
         times++;
         // Grab the first node on unvisitedNeighbors, and its row and col
         const currNode = unvisitedNeighbors.shift();
-        if (currNode.isWall === false && currNode.visited === false) {
+        if (currNode.isWall) continue;
+        if (!currNode.visited) {
             currNode.visited = true;
             nodesVisitedInOrder.push(currNode);
         }
