@@ -11,15 +11,19 @@ export function dfs(grid, startNode, finishNode) {
     while (toBeVisitedNodes.length > 0) {
         const currNode = toBeVisitedNodes.pop();
         if (currNode.isWall === true) continue;
-        if (currNode.visited !== true) {
+        if (!currNode.visited) {
             currNode.visited = true;
             nodesVisitedInOrder.push(currNode);
         }
-        if (currNode === finishNode) return nodesVisitedInOrder;
+        if (currNode === finishNode) {
+            return nodesVisitedInOrder;
+        }
         const neighbors = getUnvisitedNeighbors(currNode, grid);
         for (const neighbor of neighbors) {
-            neighbor.previousNode = currNode;
-            toBeVisitedNodes.push(neighbor);
+            if (!toBeVisitedNodes.includes(neighbor)) {
+                neighbor.previousNode = currNode;
+                toBeVisitedNodes.push(neighbor);
+            }
         }
     }
 }
