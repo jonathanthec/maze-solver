@@ -1,6 +1,6 @@
 import React from 'react';
 import { FaRegStar } from 'react-icons/fa';
-import { IoIosPlanet } from 'react-icons/io'
+import { FiTarget } from 'react-icons/fi'
 import './styles/Node.css';
 
 export const Node = props => {
@@ -29,7 +29,7 @@ export const Node = props => {
             style={{ color: "red" }}
         >
             {isStart ? <FaRegStar style={{ margin: "2px 0 0 2px", color: "red", fontSize: "1.6rem" }} /> : ""}
-            {isFinish ? <IoIosPlanet style={{ margin: "2px 0 0 2px", color: "red", fontSize: "1.6rem" }} /> : ""}
+            {isFinish ? <FiTarget style={{ margin: "2px 0 0 2px", color: "red", fontSize: "1.6rem" }} /> : ""}
         </div>
     )
 }
