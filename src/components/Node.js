@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaRegStar } from 'react-icons/fa';
 import { IoIosPlanet } from 'react-icons/io'
-import './node.css';
+import './styles/Node.css';
 
 export const Node = props => {
     let {
@@ -28,8 +28,8 @@ export const Node = props => {
             onMouseUp={() => onMouseUp()}
             style={{ color: "red" }}
         >
-            {isStart ? <FaRegStar style={{ margin: "2px 0 0 2px", color: "blue" }} /> : ""}
-            {isFinish ? <IoIosPlanet style={{ margin: "2px 0 0 2px", color: "blue" }} /> : ""}
+            {isStart ? <FaRegStar style={{ margin: "2px 0 0 2px", color: "red", fontSize: "1.6rem" }} /> : ""}
+            {isFinish ? <IoIosPlanet style={{ margin: "2px 0 0 2px", color: "red", fontSize: "1.6rem" }} /> : ""}
         </div>
     )
 }

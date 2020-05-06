@@ -1,0 +1,11 @@
+.info-section-container {
+    display: flex;
+    flex-direction: column;
+}
+
+@media only screen and (max-width: 1200px) {
+    .info-section-container {
+        display: flex;
+        flex-direction: row;
+    }
+}

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Node } from '../Node';
-import { visualizeDijkstra } from '../../algorithms/dijkstra';
-import { visualizeBfs } from '../../algorithms/bfs';
-import { visualizeDfs } from '../../algorithms/dfs';
-import './MazeSolver.css';
+import { Node } from './Node.js';
+import { ControlBar } from './ControlBar.js';
+import { InfoSection } from './InfoSection.js';
+import { Footer } from './Footer.js';
+import './styles/MazeSolver.css';
 
 export default function MazeSolver() {
     const [grid, setGrid] = useState([]);
@@ -91,45 +91,45 @@ export default function MazeSolver() {
     }
 
     return (
-        <div>
-            <button onClick={() => resetGrid()}>
-                Reset Map
-            </button>
-            <button onClick={() => visualizeDijkstra(grid, startRow, startCol, finishRow, finishCol)}>
-                Visualize Dijkstra's Algorithm
-            </button>
-            <button onClick={() => visualizeBfs(grid, startRow, startCol, finishRow, finishCol)}>
-                Visualize BFS Algorithm
-            </button>
-            <button onClick={() => visualizeDfs(grid, startRow, startCol, finishRow, finishCol)}>
-                Visualize DFS Algorithm
-            </button>
-            <div className="grid">
-                {grid && grid.map((row, rowIdx) => {
-                    return (
-                        <div key={rowIdx} className="grid-row">
-                            {row.map((node, nodeIdx) => {
-                                const { row, col, isStart, isFinish, isWall } = node;
-                                return (
-                                    <Node
-                                        key={nodeIdx}
-                                        row={row}
-                                        col={col}
-                                        isStart={isStart}
-                                        isFinish={isFinish}
-                                        isWall={isWall}
-                                        mouseIsPressed={mouseIsPressed}
-                                        onMouseDown={(row, col) => handleMouseDown(row, col)}
-                                        onMouseEnter={(row, col) => handleMouseEnter(row, col)}
-                                        onMouseLeave={(row, col) => handleMouseLeave(row, col)}
-                                        onMouseUp={() => handleMouseUp()}
-                                    />
-                                )
-                            })}
-                        </div>
-                    );
-                })}
-            </div>
+        <div className="page-container">
+            <ControlBar
+                resetGrid={resetGrid}
+                grid={grid}
+                startRow={startRow}
+                startCol={startCol}
+                finishRow={finishRow}
+                finishCol={finishCol}
+            />
+            <div className="page-main"> {/************ START OF MAIN CONTENT ************/}
+                <InfoSection />
+                <div className="grid">
+                    {grid && grid.map((row, rowIdx) => {
+                        return (
+                            <div key={rowIdx} className="grid-row">
+                                {row.map((node, nodeIdx) => {
+                                    const { row, col, isStart, isFinish, isWall } = node;
+                                    return (
+                                        <Node
+                                            key={nodeIdx}
+                                            row={row}
+                                            col={col}
+                                            isStart={isStart}
+                                            isFinish={isFinish}
+                                            isWall={isWall}
+                                            mouseIsPressed={mouseIsPressed}
+                                            onMouseDown={(row, col) => handleMouseDown(row, col)}
+                                            onMouseEnter={(row, col) => handleMouseEnter(row, col)}
+                                            onMouseLeave={(row, col) => handleMouseLeave(row, col)}
+                                            onMouseUp={() => handleMouseUp()}
+                                        />
+                                    )
+                                })}
+                            </div>
+                        );
+                    })}
+                </div>
+            </div> {/************ END OF MAIN CONTENT ************/}
+            <Footer />
         </div>
     )
 }

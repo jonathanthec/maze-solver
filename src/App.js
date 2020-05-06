@@ -1,12 +1,9 @@
 import React from 'react';
-import MazeSolver from './components/MazeSolver';
-import './App.css';
+import MazeSolver from './components/MazeSolver.js';
 
 function App() {
   return (
-    <div className="App">
-      <MazeSolver />
-    </div>
+    <MazeSolver />
   );
 }
 
