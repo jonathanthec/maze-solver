@@ -13,3 +13,11 @@
     text-decoration-color: white;
     margin-right: 2rem;
 }
+
+@media only screen and (max-width: 900px) {
+    .control-bar-container {
+        width: 100%;
+        height: 100%;
+        font-size: 1.6rem;
+    }
+}
