@@ -3,6 +3,9 @@ import { Node } from './Node.js';
 import { ControlBar } from './ControlBar.js';
 import { InfoSection } from './InfoSection.js';
 import { Footer } from './Footer.js';
+import { visualizeDijkstra } from '../algorithms/dijkstra';
+import { visualizeBfs } from '../algorithms/bfs';
+import { visualizeDfs } from '../algorithms/dfs';
 import './styles/MazeSolver.css';
 
 export default function MazeSolver() {
@@ -14,6 +17,7 @@ export default function MazeSolver() {
     const [startCol, setStartCol] = useState(NODE_START_COL);
     const [finishRow, setFinishRow] = useState(NODE_FINISH_ROW);
     const [finishCol, setFinishCol] = useState(NODE_FINISH_COL);
+    const [algorithm, setAlgorithm] = useState(null);
 
     useEffect(() => {
         const grid = initializeGrid();
@@ -32,6 +36,10 @@ export default function MazeSolver() {
         setStartCol(NODE_START_COL);
         setFinishRow(NODE_FINISH_ROW);
         setFinishCol(NODE_FINISH_COL);
+    }
+
+    function resetAlgorithm(str) {
+        setAlgorithm(str);
     }
 
     function handleMouseDown(row, col) {
@@ -90,15 +98,25 @@ export default function MazeSolver() {
         setDragFinish(false);
     }
 
+    function visualizeAlgorithm() {
+        if (algorithm === 'dijkstra') {
+            visualizeDijkstra(grid, startRow, startCol, finishRow, finishCol);
+        }
+        if (algorithm === 'bfs') {
+            visualizeBfs(grid, startRow, startCol, finishRow, finishCol);
+        }
+        if (algorithm === 'dfs') {
+            visualizeDfs(grid, startRow, startCol, finishRow, finishCol);
+        }
+    }
+
     return (
         <div className="page-container">
             <ControlBar
                 resetGrid={resetGrid}
-                grid={grid}
-                startRow={startRow}
-                startCol={startCol}
-                finishRow={finishRow}
-                finishCol={finishCol}
+                resetAlgorithm={resetAlgorithm}
+                algorithm={algorithm}
+                visualizeAlgorithm={visualizeAlgorithm}
             />
             <div className="page-main"> {/************ START OF MAIN CONTENT ************/}
                 <InfoSection />

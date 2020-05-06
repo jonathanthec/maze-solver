@@ -1,5 +1,15 @@
-.controlbar-container {
+.control-bar-container {
     width: 100%;
-    height: 8rem;
-    background-color: pink;
+    height: 6rem;
+    font-size: 1.6rem;
+}
+
+.control-bar-container-title {
+    font-size: 2rem;
+    margin-right: 2rem;
+}
+
+.control-bar-button {
+    text-decoration-color: white;
+    margin-right: 2rem;
 }
