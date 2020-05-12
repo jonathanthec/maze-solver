@@ -28,8 +28,8 @@ export const Node = props => {
             onMouseUp={() => onMouseUp()}
             style={{ color: "red" }}
         >
-            {isStart ? <FaRegStar style={{ margin: "2px 0 0 2px", color: "red", fontSize: "1.6rem" }} /> : ""}
-            {isFinish ? <FiTarget style={{ margin: "2px 0 0 2px", color: "red", fontSize: "1.6rem" }} /> : ""}
+            {isStart ? <FaRegStar style={{ margin: "2px 0 0 2px", color: "red", fontSize: "2.6rem" }} /> : ""}
+            {isFinish ? <FiTarget style={{ margin: "2px 0 0 2px", color: "red", fontSize: "2.6rem" }} /> : ""}
         </div>
     )
 }

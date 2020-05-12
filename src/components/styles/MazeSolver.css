@@ -8,17 +8,16 @@
 .page-main {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    margin-top: 50px;
+    position: fixed;
 }
 
 .grid {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-left: 30px;
-    margin-right: 30px;
+    position: relative;
 }
 
 .grid-row {

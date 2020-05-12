@@ -2,6 +2,8 @@
     width: 100%;
     height: 6rem;
     font-size: 1.6rem;
+    opacity: 85%;
+    z-index: 999;
 }
 
 .control-bar-container-title {
@@ -14,7 +16,7 @@
     margin-right: 2rem;
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 991px) {
     .control-bar-container {
         width: 100%;
         height: 100%;

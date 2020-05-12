@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Node } from './Node.js';
 import { ControlBar } from './ControlBar.js';
-import { InfoSection } from './InfoSection.js';
 import { Footer } from './Footer.js';
 import { visualizeDijkstra } from '../algorithms/dijkstra';
 import { visualizeBfs } from '../algorithms/bfs';
@@ -25,8 +24,8 @@ export default function MazeSolver() {
     }, [])
 
     function resetGrid() {
-        for (let row = 0; row < 25; row++) {
-            for (let col = 0; col < 50; col++) {
+        for (let row = 0; row < 26; row++) {
+            for (let col = 0; col < 51; col++) {
                 document.getElementById(`node-${row}-${col}`).className = 'node';
             }
         }
@@ -119,7 +118,6 @@ export default function MazeSolver() {
                 visualizeAlgorithm={visualizeAlgorithm}
             />
             <div className="page-main"> {/************ START OF MAIN CONTENT ************/}
-                <InfoSection />
                 <div className="grid">
                     {grid && grid.map((row, rowIdx) => {
                         return (
@@ -152,16 +150,16 @@ export default function MazeSolver() {
     )
 }
 
-const NODE_START_ROW = 0
-const NODE_START_COL = 0;
-const NODE_FINISH_ROW = 12;
-const NODE_FINISH_COL = 12;
+const NODE_START_ROW = 10
+const NODE_START_COL = 5;
+const NODE_FINISH_ROW = 10;
+const NODE_FINISH_COL = 20;
 
 function initializeGrid() {
     const grid = [];
-    for (let row = 0; row < 25; row++) {
+    for (let row = 0; row < 26; row++) {
         const currentRow = [];
-        for (let col = 0; col < 50; col++) {
+        for (let col = 0; col < 51; col++) {
             currentRow.push(createNode(row, col));
         }
         grid.push(currentRow);
