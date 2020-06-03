@@ -10,6 +10,7 @@ export const Node = props => {
         isStart,
         isFinish,
         isWall,
+        weighted,
         onMouseDown,
         onMouseUp,
         onMouseEnter,
@@ -18,10 +19,12 @@ export const Node = props => {
 
     const extraClassName = isWall ? 'node-wall' : '';
 
+    const weightClassName = weighted ? 'node-weighted' : '';
+
     return (
         <div
             id={`node-${row}-${col}`}
-            className={`node ${extraClassName}`}
+            className={`node ${extraClassName} ${weightClassName}`}
             onMouseDown={() => onMouseDown(row, col)}
             onMouseEnter={() => onMouseEnter(row, col)}
             onMouseLeave={() => onMouseLeave(row, col)}

@@ -10,6 +10,7 @@ import './styles/MazeSolver.css';
 export default function MazeSolver() {
     const [grid, setGrid] = useState([]);
     const [mouseIsPressed, setMouseIsPressed] = useState(false);
+    const [addWeight, setAddWeight] = useState(false);
     const [dragStart, setDragStart] = useState(false);
     const [dragFinish, setDragFinish] = useState(false);
     const [startRow, setStartRow] = useState(NODE_START_ROW);
@@ -42,18 +43,26 @@ export default function MazeSolver() {
     }
 
     function handleMouseDown(row, col) {
-        if (grid[row][col].isStart) {
-            setDragStart(true);
-            setMouseIsPressed(true);
+        if (!addWeight) {
+            if (grid[row][col].isStart) {
+                setDragStart(true);
+                setMouseIsPressed(true);
+            }
+            if (grid[row][col].isFinish) {
+                setDragFinish(true);
+                setMouseIsPressed(true);
+            }
+            if (!grid[row][col].isFinish && !grid[row][col].isStart) {
+                const newGrid = initializeGridWithWall(grid, row, col);
+                setGrid(newGrid);
+                setMouseIsPressed(true);
+            }
         }
-        if (grid[row][col].isFinish) {
-            setDragFinish(true);
-            setMouseIsPressed(true);
-        }
-        if (!grid[row][col].isFinish && !grid[row][col].isStart) {
-            const newGrid = initializeGridWithWall(grid, row, col);
-            setGrid(newGrid);
-            setMouseIsPressed(true);
+        else {
+            if (!grid[row][col].isStart && !grid[row][col].isFinish && !grid[row][col].isWall) {
+                const newGrid = initializeGridWithWeight(grid, row, col);
+                setGrid(newGrid);
+            }
         }
     }
 
@@ -92,9 +101,17 @@ export default function MazeSolver() {
     }
 
     function handleMouseUp() {
-        setMouseIsPressed(false);
-        setDragStart(false);
-        setDragFinish(false);
+        if (!addWeight) {
+            setMouseIsPressed(false);
+            setDragStart(false);
+            setDragFinish(false);
+        }
+    }
+
+    function handleKeyPress(event) {
+        if (event.key === 'w' || event.key === 'W') {
+            setAddWeight(!addWeight);
+        }
     }
 
     function visualizeAlgorithm() {
@@ -118,12 +135,12 @@ export default function MazeSolver() {
                 visualizeAlgorithm={visualizeAlgorithm}
             />
             <div className="page-main"> {/************ START OF MAIN CONTENT ************/}
-                <div className="grid">
+                <div className="grid" tabIndex="0" onKeyPress={(evt) => handleKeyPress(evt)}>
                     {grid && grid.map((row, rowIdx) => {
                         return (
                             <div key={rowIdx} className="grid-row">
                                 {row.map((node, nodeIdx) => {
-                                    const { row, col, isStart, isFinish, isWall } = node;
+                                    const { row, col, isStart, isFinish, isWall, distance, weighted } = node;
                                     return (
                                         <Node
                                             key={nodeIdx}
@@ -132,12 +149,13 @@ export default function MazeSolver() {
                                             isStart={isStart}
                                             isFinish={isFinish}
                                             isWall={isWall}
+                                            distance={distance}
+                                            weighted={weighted}
                                             mouseIsPressed={mouseIsPressed}
                                             onMouseDown={(row, col) => handleMouseDown(row, col)}
                                             onMouseEnter={(row, col) => handleMouseEnter(row, col)}
                                             onMouseLeave={(row, col) => handleMouseLeave(row, col)}
                                             onMouseUp={() => handleMouseUp()}
-                                            onKeyDown={() => console.log('Key Down')}
                                         />
                                     )
                                 })}
@@ -176,6 +194,7 @@ function createNode(row, col) {
         isFinish: row === NODE_FINISH_ROW && col === NODE_FINISH_COL,
         isWall: false,
         visited: false,
+        weighted: false,
         distance: Infinity,
         previousNode: null
     }
@@ -184,7 +203,7 @@ function createNode(row, col) {
 const initializeGridWithWall = (grid, row, col) => {
     const newGrid = grid.slice();
     const node = newGrid[row][col];
-    if (!node.isStart && !node.isFinish) {
+    if (!node.isStart && !node.isFinish && !node.weighted) {
         const newNode = {
             ...node,
             isWall: !node.isWall,
@@ -193,6 +212,19 @@ const initializeGridWithWall = (grid, row, col) => {
     }
     return newGrid;
 };
+
+const initializeGridWithWeight = (grid, row, col) => {
+    const newGrid = grid.slice();
+    const node = newGrid[row][col];
+    if (!node.isStart && !node.isFinish && !node.isWall) {
+        const newNode = {
+            ...node,
+            weighted: !node.weighted,
+        };
+        newGrid[row][col] = newNode;
+    }
+    return newGrid;
+}
 
 const initializeGridWithNewStart = (grid, row, col) => {
     const newGrid = grid.slice();

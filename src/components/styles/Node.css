@@ -12,6 +12,10 @@
     animation-delay: 0;
 }
 
+.node-weighted {
+    border: 2px solid orange;
+}
+
 .node-visited {
     animation-name: visitedAnimation;
     animation-duration: 1.5s;
