@@ -7,7 +7,7 @@ import { visualizeBfs } from '../algorithms/bfs';
 import { visualizeDfs } from '../algorithms/dfs';
 import './styles/MazeSolver.css';
 
-export default function MazeSolver() {
+export default function MazeSolver(props) {
     const [grid, setGrid] = useState([]);
     const [mouseIsPressed, setMouseIsPressed] = useState(false);
     const [addWeight, setAddWeight] = useState(false);
@@ -133,6 +133,7 @@ export default function MazeSolver() {
                 resetAlgorithm={resetAlgorithm}
                 algorithm={algorithm}
                 visualizeAlgorithm={visualizeAlgorithm}
+                toggle={props.toggle}
             />
             <div className="page-main"> {/************ START OF MAIN CONTENT ************/}
                 <div className="grid" tabIndex="0" onKeyPress={(evt) => handleKeyPress(evt)}>

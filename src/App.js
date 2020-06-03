@@ -1,10 +1,23 @@
 import React from 'react';
 import MazeSolver from './components/MazeSolver.js';
+import Modal from './modal/modal';
+import useModal from './modal/useModal';
+import './components/styles/Modal.css';
 
-function App() {
+const App = () => {
+  const { isShowing, toggle } = useModal();
+
   return (
-    <MazeSolver />
+    <div>
+      <MazeSolver
+        toggle={toggle}
+      />
+      <Modal
+        isShowing={isShowing}
+        hide={toggle}
+      />
+    </div>
   );
-}
+};
 
 export default App;
