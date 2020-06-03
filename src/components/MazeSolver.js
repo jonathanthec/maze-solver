@@ -137,6 +137,7 @@ export default function MazeSolver() {
                                             onMouseEnter={(row, col) => handleMouseEnter(row, col)}
                                             onMouseLeave={(row, col) => handleMouseLeave(row, col)}
                                             onMouseUp={() => handleMouseUp()}
+                                            onKeyDown={() => console.log('Key Down')}
                                         />
                                     )
                                 })}

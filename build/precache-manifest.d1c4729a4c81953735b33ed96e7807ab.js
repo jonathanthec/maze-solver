@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "7d6d2370e52ac3b4062d80a8ad5b631a",
+    "revision": "998aaf5c665fe1d8539c9518e3ab5ae9",
     "url": "/maze-solver/index.html"
   },
   {
-    "revision": "1ba5a80cc0710c001948",
-    "url": "/maze-solver/static/css/main.a930e26d.chunk.css"
+    "revision": "93554913e30a4dcf4b56",
+    "url": "/maze-solver/static/css/main.4ce69d93.chunk.css"
   },
   {
     "revision": "b421d27458575807fa2b",
@@ -16,7 +16,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/maze-solver/static/js/2.7f5b991c.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "1ba5a80cc0710c001948",
+    "revision": "93554913e30a4dcf4b56",
     "url": "/maze-solver/static/js/main.6e2d3667.chunk.js"
   },
   {
