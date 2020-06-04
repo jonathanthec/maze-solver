@@ -28,7 +28,7 @@
   margin: 1.75rem auto;
   margin-top: 50px;
   border-radius: 3px;
-  max-width: 600px;
+  max-width: 700px;
   padding: 2rem;
 }
 
@@ -50,6 +50,10 @@
 .modal-info-container {
   display: flex;
   flex-direction: column;
+}
+
+.modal-info-container p {
+  font-size: 1.3rem;
 }
 
 .modal-info-container-inner {
