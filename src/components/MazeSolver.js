@@ -25,8 +25,8 @@ export default function MazeSolver(props) {
     }, [])
 
     function resetGrid() {
-        for (let row = 0; row < 26; row++) {
-            for (let col = 0; col < 51; col++) {
+        for (let row = 0; row < 36; row++) {
+            for (let col = 0; col < 64; col++) {
                 document.getElementById(`node-${row}-${col}`).className = 'node';
             }
         }
@@ -177,9 +177,9 @@ const NODE_FINISH_COL = 20;
 
 function initializeGrid() {
     const grid = [];
-    for (let row = 0; row < 26; row++) {
+    for (let row = 0; row < 36; row++) {
         const currentRow = [];
-        for (let col = 0; col < 51; col++) {
+        for (let col = 0; col < 64; col++) {
             currentRow.push(createNode(row, col));
         }
         grid.push(currentRow);

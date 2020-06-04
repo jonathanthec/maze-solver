@@ -1,6 +1,6 @@
 import React from 'react';
 import MazeSolver from './components/MazeSolver.js';
-import Modal from './modal/modal';
+import Modal from './modal/Modal';
 import useModal from './modal/useModal';
 import './components/styles/Modal.css';
 
