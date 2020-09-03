@@ -1,3 +1,5 @@
+# Maze Solver
+
 ## Maze Solver
 Welcome to my Maze Solver! This project will allow you to visualize how different search algorithms work in progress. It is simple to use and is a work in progress. You can directly drag and drop starting and finishing locations, placing wall objects, and choose the speed and type of algorithms that you'd like to see. The deployed project is here: https://jonathanthec.github.io/maze-solver/
 
